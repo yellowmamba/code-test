@@ -1,0 +1,7 @@
+<phpunit>
+  <testsuites>
+    <testsuite name="redbubble_coding_test">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>

@@ -1,0 +1,12 @@
+{
+    "require-dev": {
+        "phpunit/phpunit": "5.5.*"
+    },
+    "autoload": {
+        "psr-4": {"Redbubble\\": "src/"}
+    },
+    "require": {
+        "symfony/console": "~3.0",
+        "guzzlehttp/guzzle": "~6.0"
+    }
+}
