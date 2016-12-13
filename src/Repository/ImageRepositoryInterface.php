@@ -4,7 +4,7 @@ namespace Redbubble\Repository;
 
 interface ImageRepositoryInterface
 {
-    public function findByModel($model);
+    public function findByMakeAndModel($make, $model);
 
     public function findByMake($make);
 

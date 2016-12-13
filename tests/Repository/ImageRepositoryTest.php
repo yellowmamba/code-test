@@ -22,9 +22,9 @@ class ImageRepositoryTest extends TestCase
         $this->repository = new ImageRepository($this->images);
     }
 
-    public function testFindByModel()
+    public function testFindByMakeAndModel()
     {
-        $this->assertCount(5, $this->repository->findByModel('D-LUX 3'));
+        $this->assertCount(5, $this->repository->findByMakeAndModel('LEICA', 'D-LUX 3'));
     }
 
     public function testFindByMake()

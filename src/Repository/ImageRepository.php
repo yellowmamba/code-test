@@ -17,10 +17,12 @@ class ImageRepository implements ImageRepositoryInterface
         $this->images = $images;
     }
 
-    public function findByModel($model)
+    public function findByMakeAndModel($make, $model)
     {
-        return array_filter($this->images, function (Image $image) use ($model) {
-            return strtolower($image->getModel()) === strtolower($model);
+        return array_filter($this->images, function (Image $image) use ($make, $model) {
+            return
+                strtolower($image->getMake()) === strtolower($make) &&
+                strtolower($image->getModel()) === strtolower($model);
         });
     }
 
