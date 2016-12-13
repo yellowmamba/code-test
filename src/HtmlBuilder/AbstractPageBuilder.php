@@ -12,6 +12,7 @@ abstract class AbstractPageBuilder
     {
         $this->images = $images;
         $this->dir = $dir;
+        $this->template = $this->getTemplate();
     }
 
     abstract protected function getTemplate();
