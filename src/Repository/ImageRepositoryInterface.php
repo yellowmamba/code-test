@@ -1,5 +1,7 @@
 <?php
 
+namespace Redbubble\Repository;
+
 interface ImageRepositoryInterface
 {
     public function findByModel($model);
