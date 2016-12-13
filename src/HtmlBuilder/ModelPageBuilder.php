@@ -1,5 +1,9 @@
 <?php
 
+namespace Redbubble\HtmlBuilder;
+
+use Redbubble\HtmlBuilder\Template\ModelTemplate;
+
 class ModelPageBuilder extends AbstractPageBuilder
 {
     public function build()
@@ -9,7 +13,7 @@ class ModelPageBuilder extends AbstractPageBuilder
         // pass to a renderer to generate files
     }
 
-    protected function getTemplate()
+    public function getTemplate()
     {
         return new ModelTemplate();
     }

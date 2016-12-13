@@ -1,5 +1,7 @@
 <?php
 
+namespace Redbubble\HtmlBuilder;
+
 abstract class AbstractPageBuilder
 {
     protected $images;
@@ -15,7 +17,7 @@ abstract class AbstractPageBuilder
         $this->template = $this->getTemplate();
     }
 
-    abstract protected function getTemplate();
+    abstract public function getTemplate();
 
     abstract public function build();
 
