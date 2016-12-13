@@ -2,17 +2,19 @@
 
 namespace Redbubble\HtmlBuilder;
 
+use Redbubble\Repository\ImageRepositoryInterface;
+
 abstract class AbstractPageBuilder
 {
-    protected $images;
+    protected $repository;
 
     protected $dir;
 
     protected $template;
 
-    public function __construct($images, $dir)
+    public function __construct(ImageRepositoryInterface $repository, $dir)
     {
-        $this->images = $images;
+        $this->repository = $repository;
         $this->dir = $dir;
         $this->template = $this->getTemplate();
     }
