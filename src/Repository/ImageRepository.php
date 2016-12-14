@@ -47,23 +47,43 @@ class ImageRepository implements ImageRepositoryInterface
         return array_values($models);
     }
 
-    public function findByMake($make)
+    public function findByMake($make, $limit = null)
     {
         $result = array_filter($this->images, function (Image $image) use ($make) {
             return strtolower($image->getMake()) === strtolower($make);
         });
 
-        return $result;
+        if (!$limit) {
+            return $result;
+        }
+
+        if (is_int($limit) && $limit > 0) {
+            return array_slice($result, 0, $limit);
+        }
+
+        throw new \Exception(
+            "Invalid limit: " . $limit . " is specified for 'findByMake' method, it must be a positive integer if supplied."
+        );
     }
 
-    public function findByMakeAndModel($make, $model)
+    public function findByMakeAndModel($make, $model, $limit = null)
     {
         $result = array_filter($this->images, function (Image $image) use ($make, $model) {
             return strtolower($image->getMake()) === strtolower($make) &&
                 strtolower($image->getModel()) === strtolower($model);
         });
 
-        return $result;
+        if (!$limit) {
+            return $result;
+        }
+
+        if (is_int($limit) && $limit > 0) {
+            return array_slice($result, 0, $limit);
+        }
+
+        throw new \Exception(
+            "Invalid limit: " . $limit . " is specified for 'findByMakeAndModel' method, it must be a positive integer if supplied."
+        );
     }
 
     public function find($limit = null)

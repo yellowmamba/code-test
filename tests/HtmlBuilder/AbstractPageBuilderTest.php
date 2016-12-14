@@ -4,8 +4,10 @@ use PHPUnit\Framework\TestCase;
 use Redbubble\HtmlBuilder\IndexPageBuilder;
 use Redbubble\HtmlBuilder\ModelPageBuilder;
 use Redbubble\HtmlBuilder\MakePageBuilder;
+use Redbubble\HtmlBuilder\AbstractPageBuilder;
 use Redbubble\Repository\ImageRepository;
 use Redbubble\ImageProvider\XmlProvider;
+use Redbubble\HtmlBuilder\Template\AbstractTemplate;
 
 class AbstractPageBuilderTest extends TestCase
 {
@@ -21,7 +23,7 @@ class AbstractPageBuilderTest extends TestCase
             ->getMock()
         ;
 
-        $this->dir = 'some dir';
+        $this->dir = 'something';
     }
 
     public function testIndexPageTemplate()
@@ -45,18 +47,30 @@ class AbstractPageBuilderTest extends TestCase
         $this->assertInstanceOf('Redbubble\HtmlBuilder\Template\ModelTemplate', $template);
     }
 
-    public function testIndexPageBuild()
+    public function testBuild()
     {
+        $builder = $this->getMockForAbstractClass(
+            AbstractPageBuilder::class,
+            [$this->page, $this->dir]
+        );
 
-    }
+        $template = $this
+            ->getMockBuilder(AbstractTemplate::class)
+            ->setMethods(['render'])
+            ->getMockForAbstractClass()
+        ;
 
-    public function testMakePageBuild()
-    {
+        $template
+            ->expects($this->once())
+            ->method('render')
+            ->with($this->identicalTo($this->page))
+        ;
 
-    }
+        $builder->expects($this->once())
+             ->method('getTemplate')
+             ->will($this->returnValue($template))
+        ;
 
-    public function testModelPageBuild()
-    {
-
+        $builder->createHtml();
     }
 }

@@ -2,30 +2,31 @@
 
 namespace Redbubble\HtmlBuilder;
 
-use Redbubble\Repository\ImageRepositoryInterface;
 use Redbubble\Domain\Page;
 
 abstract class AbstractPageBuilder
 {
     protected $page;
 
-    protected $outputDir;
+    protected $dir;
 
-    protected $template;
-
-    public function __construct(Page $page, $outputDir)
+    public function __construct(Page $page, $dir)
     {
         $this->page = $page;
-        $this->outputDir = $outputDir;
-        $this->template = $this->getTemplate();
+        $this->dir = rtrim($dir, '/') . '/';
     }
 
     abstract public function getTemplate();
 
-    public function build()
+    public function createHtml()
     {
-        $content = $this->template->render($this->page);
+        return $this->getTemplate()->render($this->page);        
+    }
 
-        file_put_contents($this->outputDir . $this->page->getTitle() . '.html', $content);
+    public function output()
+    {
+        $fileName = $this->page->getTitle() . '.html';
+        file_put_contents($fileName, $this->createHtml());
+        rename($fileName, $this->dir . $fileName);
     }
 }
