@@ -17,20 +17,44 @@ class ImageRepository implements ImageRepositoryInterface
         $this->images = $images;
     }
 
-    public function findByMakeAndModel($make, $model)
+    public function getAllMakes()
     {
-        return array_filter($this->images, function (Image $image) use ($make, $model) {
-            return
-                strtolower($image->getMake()) === strtolower($make) &&
-                strtolower($image->getModel()) === strtolower($model);
-        });
+        $makes = [];
+
+        foreach ($this->images as $image) {
+            $make = $image->getMake();
+            if ($make) {
+                $makes[$make] = $make;
+            }
+        }
+
+        return array_values($makes);
     }
 
-    public function findByMake($make)
+    public function getAllModelsByMake($make)
     {
-        return array_filter($this->images, function (Image $image) use ($make) {
-            return strtolower($image->getMake()) === strtolower($make);
+        $models = [];
+
+        foreach ($this->images as $image) {
+            if (strtolower($image->getMake()) === strtolower($make)) {
+                $model = $image->getModel();
+                if ($model) {
+                    $models[$model] = $model;
+                }
+            }
+        }
+
+        return array_values($models);
+    }
+
+    public function findByMakeAndModel($make, $model)
+    {
+        $result = array_filter($this->images, function (Image $image) use ($make, $model) {
+            return strtolower($image->getMake()) === strtolower($make) &&
+                strtolower($image->getModel()) === strtolower($model);
         });
+
+        return $result;
     }
 
     public function find($limit = null)

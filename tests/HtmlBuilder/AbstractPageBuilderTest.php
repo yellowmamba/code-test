@@ -15,13 +15,11 @@ class AbstractPageBuilderTest extends TestCase
 
     public function setUp()
     {
-        $xml = file_get_contents(__DIR__ . '/fixtures/works.xml');
+        $this->imageRepository = $this
+            ->getMockBuilder('\Redbubble\Repository\ImageRepositoryInterface')
+            ->getMock()
+        ;
 
-        $provider = new XmlProvider($xml);
-
-        $images = $provider->convertToImages();
-
-        $this->imageRepository = new ImageRepository($images);
         $this->dir = 'some dir';
     }
 

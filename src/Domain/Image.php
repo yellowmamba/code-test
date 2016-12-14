@@ -12,10 +12,12 @@ class Image
 
     protected $thumbnail;
 
-    public function __construct($id, $thumbnail)
+    public function __construct($id, $thumbnail, $make = null, $model = null)
     {
         $this->id = $id;
         $this->thumbnail = $thumbnail;
+        $this->make = $make;
+        $this->model = $model;
     }
 
     public function getId()

@@ -13,23 +13,52 @@ class ImageRepositoryTest extends TestCase
 
     public function setUp()
     {
-        $xml = file_get_contents(__DIR__ . '/fixtures/works.xml');
-
-        $provider = new XmlProvider($xml);
-
-        $this->images = $provider->convertToImages();
+        $this->images = [
+            new Image(1, 'url-1', 'Sony', 'model-1'),
+            new Image(2, 'url-2', 'Sony', 'model-2'),
+            new Image(3, 'url-3', 'Sony', 'model-2'),
+            new Image(4, 'url-4', 'Canon', 'model-1'),
+            new Image(5, 'url-5', 'Canon', 'model-1'),
+            new Image(6, 'url-6', 'Nikon', 'model-1'),
+            new Image(7, 'url-7', 'Nikon', 'model-2'),
+            new Image(8, 'url-8', 'Nikon', 'model-2'),
+            new Image(9, 'url-9', 'Nikon', 'model-2'),
+        ];
 
         $this->repository = new ImageRepository($this->images);
     }
 
-    public function testFindByMakeAndModel()
+    public function testGetAllMakes()
     {
-        $this->assertCount(5, $this->repository->findByMakeAndModel('LEICA', 'D-LUX 3'));
+        $makes = $this->repository->getAllMakes();
+
+        $this->assertCount(3, $makes);
+        $this->assertContains('Sony', $makes);
+        $this->assertContains('Canon', $makes);
+        $this->assertContains('Nikon', $makes);
     }
 
-    public function testFindByMake()
+    public function testGetAllModelsByMake()
     {
-        $this->assertCount(1, $this->repository->findByMake('FUJI PHOTO FILM CO., LTD.'));
+        $make = 'Sony';
+        $models = $this->repository->getAllModelsByMake($make);
+
+        $this->assertCount(2, $models);
+        $this->assertContains('model-1', $models);
+        $this->assertContains('model-2', $models);
+    }
+
+    public function testFindByMakeAndModel()
+    {
+        $make = 'Nikon';
+        $model = 'model-2';
+        $images = $this->repository->findByMakeAndModel($make, $model);
+
+        $this->assertCount(3, $images);
+
+        foreach ($images as $image) {
+            $this->assertContains($image->getId(), [7, 8, 9]);
+        }
     }
 
     public function testFindWithLimit()
