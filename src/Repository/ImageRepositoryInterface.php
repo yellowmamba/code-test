@@ -8,6 +8,8 @@ interface ImageRepositoryInterface
 
     public function getAllModelsByMake($make);
 
+    public function findByMake($make);
+
     public function findByMakeAndModel($make, $model);
 
     public function find($limit = null);

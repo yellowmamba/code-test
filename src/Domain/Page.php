@@ -8,12 +8,27 @@ class Page
 
     protected $navigation;
 
-    protected $thumbnails;
+    protected $gallery;
 
-    public function __construct($title, $navigation, $thumbnails)
+    public function __construct($title, $navigation, $gallery)
     {
         $this->title = $title;
         $this->navigation = $navigation;
-        $this->thumbnails = $thumbnails;
+        $this->gallery = $gallery;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function getNavigation()
+    {
+        return $this->navigation;
+    }
+
+    public function getGallery()
+    {
+        return $this->gallery;
     }
 }

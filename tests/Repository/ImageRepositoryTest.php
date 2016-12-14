@@ -48,6 +48,18 @@ class ImageRepositoryTest extends TestCase
         $this->assertContains('model-2', $models);
     }
 
+    public function testFindByMake()
+    {
+        $make = 'Nikon';
+        $images = $this->repository->findByMake($make);
+
+        $this->assertCount(4, $images);
+
+        foreach ($images as $image) {
+            $this->assertContains($image->getId(), [6, 7, 8, 9]);
+        }
+    }
+
     public function testFindByMakeAndModel()
     {
         $make = 'Nikon';

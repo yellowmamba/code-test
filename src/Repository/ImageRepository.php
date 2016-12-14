@@ -47,6 +47,15 @@ class ImageRepository implements ImageRepositoryInterface
         return array_values($models);
     }
 
+    public function findByMake($make)
+    {
+        $result = array_filter($this->images, function (Image $image) use ($make) {
+            return strtolower($image->getMake()) === strtolower($make);
+        });
+
+        return $result;
+    }
+
     public function findByMakeAndModel($make, $model)
     {
         $result = array_filter($this->images, function (Image $image) use ($make, $model) {

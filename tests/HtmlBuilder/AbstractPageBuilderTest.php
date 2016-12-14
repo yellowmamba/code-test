@@ -9,14 +9,15 @@ use Redbubble\ImageProvider\XmlProvider;
 
 class AbstractPageBuilderTest extends TestCase
 {
-    protected $imageRepository;
+    protected $page;
 
     protected $dir;
 
     public function setUp()
     {
-        $this->imageRepository = $this
-            ->getMockBuilder('\Redbubble\Repository\ImageRepositoryInterface')
+        $this->page = $this
+            ->getMockBuilder('\Redbubble\Domain\Page')
+            ->disableOriginalConstructor()
             ->getMock()
         ;
 
@@ -25,21 +26,21 @@ class AbstractPageBuilderTest extends TestCase
 
     public function testIndexPageTemplate()
     {
-        $builder = new IndexPageBuilder($this->imageRepository, $this->dir);
+        $builder = new IndexPageBuilder($this->page, $this->dir);
         $template = $builder->getTemplate();
         $this->assertInstanceOf('Redbubble\HtmlBuilder\Template\IndexTemplate', $template);
     }
 
     public function testMakePageTemplate()
     {
-        $builder = new MakePageBuilder($this->imageRepository, $this->dir);
+        $builder = new MakePageBuilder($this->page, $this->dir);
         $template = $builder->getTemplate();
         $this->assertInstanceOf('Redbubble\HtmlBuilder\Template\MakeTemplate', $template);
     }
 
     public function testModelPageTemplate()
     {
-        $builder = new ModelPageBuilder($this->imageRepository, $this->dir);
+        $builder = new ModelPageBuilder($this->page, $this->dir);
         $template = $builder->getTemplate();
         $this->assertInstanceOf('Redbubble\HtmlBuilder\Template\ModelTemplate', $template);
     }

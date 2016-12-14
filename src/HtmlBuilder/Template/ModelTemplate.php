@@ -8,6 +8,10 @@ class ModelTemplate extends AbstractTemplate
 {
     public function render(Page $page)
     {
-        // render html content of the page
+        $content = parent::render($page);
+
+        // override ...
+
+        return $content;
     }
 }
