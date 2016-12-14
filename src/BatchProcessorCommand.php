@@ -50,6 +50,7 @@ class BatchProcessorCommand extends Command
             $source = $response->getBody()->getContents();            
         } catch (\Exception $e) {
             $output->writeln('<error>Cannot retrieve content from the endpoint: ' . $url . '</error>');
+            $output->writeln('<error>Message: ' . $e->getMessage() . '</error>');
             return;
         }
 
