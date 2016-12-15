@@ -6,6 +6,12 @@ use Redbubble\Domain\Page;
 
 abstract class AbstractTemplate
 {
+    /**
+     * Render html content of a Page object
+     *
+     * @param  Page   $page
+     * @return string
+     */
     public function render(Page $page)
     {
         $html = '<h1>' . $page->getTitle() . '</h1>';

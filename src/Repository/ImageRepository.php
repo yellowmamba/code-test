@@ -17,6 +17,9 @@ class ImageRepository implements ImageRepositoryInterface
         $this->images = $images;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getAllMakes()
     {
         $makes = [];
@@ -31,6 +34,9 @@ class ImageRepository implements ImageRepositoryInterface
         return array_values($makes);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getAllModelsByMake($make)
     {
         $models = [];
@@ -47,6 +53,9 @@ class ImageRepository implements ImageRepositoryInterface
         return array_values($models);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function findByMake($make, $limit = null)
     {
         $result = array_filter($this->images, function (Image $image) use ($make) {
@@ -66,6 +75,9 @@ class ImageRepository implements ImageRepositoryInterface
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function findByMakeAndModel($make, $model, $limit = null)
     {
         $result = array_filter($this->images, function (Image $image) use ($make, $model) {
@@ -86,6 +98,9 @@ class ImageRepository implements ImageRepositoryInterface
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function find($limit = null)
     {
         if (!$limit) {

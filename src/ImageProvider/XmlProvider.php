@@ -13,6 +13,9 @@ class XmlProvider implements ProviderInterface
         $this->works = new \SimpleXMLElement($xml);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function convertToImages()
     {
         $images = [];
